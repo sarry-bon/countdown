@@ -1,0 +1,1322 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Countdown</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+
+            font-family: "Baloo 2", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 50% 48%,
+                    #193d70 0%,
+                    #102b52 28%,
+                    #081b38 58%,
+                    #030b18 100%
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           LUCI DI SFONDO
+        ========================================= */
+
+        .luce {
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            filter: blur(50px);
+
+            z-index: 0;
+        }
+
+
+        .luce1 {
+            width: 500px;
+            height: 500px;
+
+            top: -250px;
+            left: -150px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            animation:
+                luceMovimento1 9s infinite alternate ease-in-out;
+        }
+
+
+        .luce2 {
+            width: 600px;
+            height: 600px;
+
+            right: -300px;
+            bottom: -300px;
+
+            background:
+                rgba(150,190,240,0.10);
+
+            animation:
+                luceMovimento2 12s infinite alternate ease-in-out;
+        }
+
+
+        .luce3 {
+            width: 350px;
+            height: 350px;
+
+            left: 40%;
+            top: 35%;
+
+            background:
+                rgba(220,235,255,0.045);
+
+            filter: blur(80px);
+        }
+
+
+        @keyframes luceMovimento1 {
+
+            from {
+                transform:
+                    translate(0, 0);
+            }
+
+            to {
+                transform:
+                    translate(150px, 100px);
+            }
+        }
+
+
+        @keyframes luceMovimento2 {
+
+            from {
+                transform:
+                    translate(0, 0);
+            }
+
+            to {
+                transform:
+                    translate(-120px, -100px);
+            }
+        }
+
+
+        /* =========================================
+           PARTICELLE
+        ========================================= */
+
+        .particella {
+            position: fixed;
+
+            width: 4px;
+            height: 4px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 0 7px white,
+                0 0 15px rgba(220,235,255,0.8);
+
+            opacity: 0.5;
+
+            animation:
+                scintilla infinite ease-in-out;
+
+            z-index: 1;
+        }
+
+
+        .p1 {
+            top: 14%;
+            left: 12%;
+            animation-duration: 3s;
+        }
+
+        .p2 {
+            top: 27%;
+            left: 25%;
+            animation-duration: 4s;
+        }
+
+        .p3 {
+            top: 12%;
+            right: 18%;
+            animation-duration: 2.5s;
+        }
+
+        .p4 {
+            top: 38%;
+            right: 8%;
+            animation-duration: 3.5s;
+        }
+
+        .p5 {
+            bottom: 20%;
+            left: 18%;
+            animation-duration: 4.5s;
+        }
+
+        .p6 {
+            bottom: 12%;
+            right: 23%;
+            animation-duration: 3s;
+        }
+
+        .p7 {
+            bottom: 30%;
+            left: 7%;
+            animation-duration: 2.8s;
+        }
+
+        .p8 {
+            top: 52%;
+            right: 17%;
+            animation-duration: 4s;
+        }
+
+        .p9 {
+            top: 20%;
+            left: 50%;
+            animation-duration: 3.2s;
+        }
+
+        .p10 {
+            bottom: 18%;
+            left: 45%;
+            animation-duration: 2.7s;
+        }
+
+
+        @keyframes scintilla {
+
+            0%,
+            100% {
+                opacity: 0.15;
+                transform: scale(0.6);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.7);
+            }
+        }
+
+
+        /* =========================================
+           DECORAZIONI CIRCOLARI
+        ========================================= */
+
+        .anello {
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            border: 1px solid
+                rgba(225,235,245,0.12);
+
+            z-index: 1;
+        }
+
+
+        .anello1 {
+            width: 520px;
+            height: 520px;
+
+            left: -280px;
+            top: 12%;
+
+            animation:
+                rotazione 35s linear infinite;
+        }
+
+
+        .anello2 {
+            width: 680px;
+            height: 680px;
+
+            right: -370px;
+            top: -170px;
+
+            border-color:
+                rgba(255,255,255,0.08);
+
+            animation:
+                rotazioneReverse 45s linear infinite;
+        }
+
+
+        .anello3 {
+            width: 300px;
+            height: 300px;
+
+            right: 8%;
+            bottom: -180px;
+
+            border-color:
+                rgba(210,225,245,0.10);
+
+            animation:
+                rotazione 28s linear infinite;
+        }
+
+
+        .anello4 {
+            width: 160px;
+            height: 160px;
+
+            left: 8%;
+            bottom: 10%;
+
+            border-color:
+                rgba(255,255,255,0.13);
+        }
+
+
+        @keyframes rotazione {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @keyframes rotazioneReverse {
+
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+
+        /* =========================================
+           ORNAMENTI A STELLA
+        ========================================= */
+
+        .stella {
+            position: fixed;
+
+            color: white;
+
+            font-size: 22px;
+
+            opacity: 0.65;
+
+            text-shadow:
+                0 0 8px white,
+                0 0 20px rgba(210,230,255,0.8);
+
+            animation:
+                stellaBrilla 3s infinite ease-in-out;
+
+            z-index: 2;
+        }
+
+
+        .s1 {
+            top: 17%;
+            left: 31%;
+        }
+
+        .s2 {
+            top: 23%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .s3 {
+            bottom: 22%;
+            left: 30%;
+            animation-delay: 0.5s;
+        }
+
+        .s4 {
+            bottom: 16%;
+            right: 34%;
+            animation-delay: 1.7s;
+        }
+
+        .s5 {
+            top: 65%;
+            left: 12%;
+            font-size: 15px;
+            animation-delay: 2s;
+        }
+
+        .s6 {
+            top: 30%;
+            right: 10%;
+            font-size: 15px;
+            animation-delay: 1.2s;
+        }
+
+
+        @keyframes stellaBrilla {
+
+            0%,
+            100% {
+                opacity: 0.25;
+                transform: scale(0.7) rotate(0deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3) rotate(45deg);
+            }
+        }
+
+
+        /* =========================================
+           LINEE ARGENTO
+        ========================================= */
+
+        .linea {
+            position: fixed;
+
+            height: 1px;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.55),
+                    rgba(180,195,215,0.3),
+                    transparent
+                );
+
+            z-index: 1;
+        }
+
+
+        .linea1 {
+            width: 45vw;
+
+            top: 12%;
+            left: -5%;
+
+            transform: rotate(-17deg);
+        }
+
+
+        .linea2 {
+            width: 40vw;
+
+            top: 85%;
+            right: -4%;
+
+            transform: rotate(-17deg);
+        }
+
+
+        .linea3 {
+            width: 25vw;
+
+            top: 25%;
+            right: -5%;
+
+            transform: rotate(28deg);
+
+            opacity: 0.4;
+        }
+
+
+        .linea4 {
+            width: 25vw;
+
+            bottom: 27%;
+            left: -5%;
+
+            transform: rotate(28deg);
+
+            opacity: 0.35;
+        }
+
+
+        /* =========================================
+           CONTENITORE
+        ========================================= */
+
+        .container {
+            position: relative;
+
+            z-index: 10;
+
+            text-align: center;
+
+            transition:
+                transform 0.8s ease;
+        }
+
+
+        h1 {
+            margin: 0 0 28px;
+
+            font-size: 68px;
+
+            letter-spacing: 10px;
+
+            color: white;
+
+            text-shadow:
+                0 3px 0 #8d9aaa,
+                0 7px 20px rgba(0,0,0,0.75);
+        }
+
+
+        /* =========================================
+           INPUT
+        ========================================= */
+
+        .impostazioni {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 50px;
+        }
+
+
+        input {
+            width: 190px;
+
+            padding: 14px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.7);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.95);
+
+            color: #071a35;
+
+            font-family: inherit;
+
+            font-size: 21px;
+
+            text-align: center;
+
+            outline: none;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0,0,0,0.4);
+        }
+
+
+        button {
+            padding: 15px 32px;
+
+            border:
+                1px solid white;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #bdc7d3
+                );
+
+            color: #071a35;
+
+            font-family: inherit;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.4);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        button:hover {
+            transform:
+                translateY(-3px)
+                scale(1.05);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.55);
+        }
+
+
+        /* =========================================
+           NUMERI
+        ========================================= */
+
+        .timer {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .blocco {
+            min-width: 205px;
+        }
+
+
+        .numero {
+            font-size: 145px;
+
+            line-height: 0.82;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #edf2f7 15%,
+                    #c1cad5 30%,
+                    #737f8f 48%,
+                    #f9fbfd 64%,
+                    #aeb9c6 80%,
+                    #ffffff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            filter:
+                drop-shadow(
+                    0 6px 0 #4f5e71
+                )
+                drop-shadow(
+                    0 15px 25px
+                    rgba(0,0,0,0.75)
+                );
+
+            transition:
+                transform 0.2s;
+        }
+
+
+        .etichetta {
+            margin-top: 18px;
+
+            font-size: 19px;
+
+            letter-spacing: 6px;
+
+            color: #dce4ed;
+
+            text-shadow:
+                0 3px 8px
+                rgba(0,0,0,0.7);
+        }
+
+
+        .separatore {
+            margin-top: -30px;
+
+            font-size: 82px;
+
+            color: #f5f7fa;
+
+            text-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.8);
+        }
+
+
+        .messaggio {
+            margin-top: 45px;
+
+            font-size: 20px;
+
+            color: #cbd6e3;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================================
+           AVVIATO
+        ========================================= */
+
+        body.avviato h1,
+        body.avviato .impostazioni,
+        body.avviato .messaggio {
+            display: none;
+        }
+
+
+        body.avviato .container {
+            transform: scale(1.04);
+        }
+
+
+        /* =========================================
+           CAMBIO NUMERO
+        ========================================= */
+
+        .pop {
+            animation:
+                popNumero 0.25s ease-out;
+        }
+
+
+        @keyframes popNumero {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.09);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        /* =========================================
+           ULTIMI 10 SECONDI
+        ========================================= */
+
+        body.ultimi10 .timer {
+            display: block;
+        }
+
+
+        body.ultimi10 .blocco:not(#secondiBlocco) {
+            display: none;
+        }
+
+
+        body.ultimi10 .separatore {
+            display: none;
+        }
+
+
+        body.ultimi10 #secondiBlocco {
+            width: 100vw;
+        }
+
+
+        body.ultimi10 #secondi {
+            font-size:
+                min(78vw, 78vh);
+
+            line-height: 0.65;
+
+            animation:
+                rimbalzo 0.72s infinite,
+                inclinazione 1.3s infinite alternate ease-in-out;
+
+            filter:
+                drop-shadow(
+                    0 17px 0 #536275
+                )
+                drop-shadow(
+                    0 35px 40px
+                    rgba(0,0,0,0.9)
+                );
+        }
+
+
+        body.ultimi10 .etichetta {
+            display: none;
+        }
+
+
+        @keyframes rimbalzo {
+
+            0% {
+                transform:
+                    scale(1)
+                    translateY(0);
+            }
+
+            20% {
+                transform:
+                    scale(1.18)
+                    translateY(-50px);
+            }
+
+            40% {
+                transform:
+                    scale(0.91)
+                    translateY(28px);
+            }
+
+            60% {
+                transform:
+                    scale(1.12)
+                    translateY(-22px);
+            }
+
+            80% {
+                transform:
+                    scale(0.97)
+                    translateY(8px);
+            }
+
+            100% {
+                transform:
+                    scale(1)
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes inclinazione {
+
+            from {
+                rotate: -6deg;
+            }
+
+            to {
+                rotate: 6deg;
+            }
+        }
+
+
+        /* =========================================
+           FINE
+        ========================================= */
+
+        body.finito .timer {
+            display: none;
+        }
+
+
+        body.finito::before {
+            content: "AUGURIII ";
+
+            position: fixed;
+
+            z-index: 30;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            font-size:
+                clamp(
+                    45px,
+                    8vw,
+                    125px
+                );
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            color: white;
+
+            letter-spacing: 6px;
+
+            text-shadow:
+                0 5px 0 #788594,
+                0 15px 35px
+                rgba(0,0,0,0.9);
+
+            animation:
+                finale 1s ease-out;
+        }
+
+
+        @keyframes finale {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.2);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            h1 {
+                font-size: 43px;
+
+                letter-spacing: 5px;
+            }
+
+            .timer {
+                gap: 2px;
+            }
+
+            .blocco {
+                min-width: 88px;
+            }
+
+            .numero {
+                font-size: 72px;
+            }
+
+            .separatore {
+                font-size: 42px;
+            }
+
+            .etichetta {
+                font-size: 11px;
+
+                letter-spacing: 3px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Luci -->
+
+    <div class="luce luce1"></div>
+    <div class="luce luce2"></div>
+    <div class="luce luce3"></div>
+
+
+    <!-- Particelle -->
+
+    <div class="particella p1"></div>
+    <div class="particella p2"></div>
+    <div class="particella p3"></div>
+    <div class="particella p4"></div>
+    <div class="particella p5"></div>
+    <div class="particella p6"></div>
+    <div class="particella p7"></div>
+    <div class="particella p8"></div>
+    <div class="particella p9"></div>
+    <div class="particella p10"></div>
+
+
+    <!-- Cerchi -->
+
+    <div class="anello anello1"></div>
+    <div class="anello anello2"></div>
+    <div class="anello anello3"></div>
+    <div class="anello anello4"></div>
+
+
+    <!-- Stelle -->
+
+    <div class="stella s1">✦</div>
+    <div class="stella s2">✧</div>
+    <div class="stella s3">✦</div>
+    <div class="stella s4">✧</div>
+    <div class="stella s5">✦</div>
+    <div class="stella s6">✧</div>
+
+
+    <!-- Linee -->
+
+    <div class="linea linea1"></div>
+    <div class="linea linea2"></div>
+    <div class="linea linea3"></div>
+    <div class="linea linea4"></div>
+
+
+    <!-- Countdown -->
+
+    <div class="container">
+
+        <h1>COUNTDOWN</h1>
+
+
+        <div class="impostazioni">
+
+            <input
+                type="time"
+                id="oraFine"
+            >
+
+            <button onclick="avviaCountdown()">
+                AVVIA
+            </button>
+
+        </div>
+
+
+        <div class="timer">
+
+            <div class="blocco">
+
+                <div
+                    class="numero"
+                    id="ore"
+                >
+                    00
+                </div>
+
+                <div class="etichetta">
+                    ORE
+                </div>
+
+            </div>
+
+
+            <div class="separatore">
+                :
+            </div>
+
+
+            <div class="blocco">
+
+                <div
+                    class="numero"
+                    id="minuti"
+                >
+                    00
+                </div>
+
+                <div class="etichetta">
+                    MINUTI
+                </div>
+
+            </div>
+
+
+            <div class="separatore">
+                :
+            </div>
+
+
+            <div
+                class="blocco"
+                id="secondiBlocco"
+            >
+
+                <div
+                    class="numero"
+                    id="secondi"
+                >
+                    00
+                </div>
+
+                <div class="etichetta">
+                    SECONDI
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="messaggio"
+            id="messaggio"
+        >
+            Scegli l'orario in cui vuoi arrivare.
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let intervallo = null;
+
+        let destinazione = null;
+
+
+        function avviaCountdown() {
+
+            const input =
+                document.getElementById(
+                    "oraFine"
+                );
+
+
+            if (!input.value) {
+
+                alert(
+                    "Inserisci prima un orario!"
+                );
+
+                return;
+            }
+
+
+            const [ore, minuti] =
+                input.value.split(":");
+
+
+            const adesso =
+                new Date();
+
+
+            destinazione =
+                new Date();
+
+
+            destinazione.setHours(
+                Number(ore),
+                Number(minuti),
+                0,
+                0
+            );
+
+
+            if (destinazione <= adesso) {
+
+                destinazione.setDate(
+                    destinazione.getDate() + 1
+                );
+            }
+
+
+            clearInterval(intervallo);
+
+
+            document.body.classList.add(
+                "avviato"
+            );
+
+
+            document.body.classList.remove(
+                "finito"
+            );
+
+
+            aggiornaCountdown();
+
+
+            intervallo =
+                setInterval(
+                    aggiornaCountdown,
+                    100
+                );
+        }
+
+
+        function aggiornaCountdown() {
+
+            if (!destinazione) {
+                return;
+            }
+
+
+            const adesso =
+                new Date();
+
+
+            const differenza =
+                destinazione - adesso;
+
+
+            if (differenza <= 0) {
+
+                terminaCountdown();
+
+                return;
+            }
+
+
+            const totaleSecondi =
+                Math.ceil(
+                    differenza / 1000
+                );
+
+
+            const ore =
+                Math.floor(
+                    totaleSecondi / 3600
+                );
+
+
+            const minuti =
+                Math.floor(
+                    (totaleSecondi % 3600) / 60
+                );
+
+
+            const secondi =
+                totaleSecondi % 60;
+
+
+            aggiornaNumero(
+                "ore",
+                ore
+            );
+
+
+            aggiornaNumero(
+                "minuti",
+                minuti
+            );
+
+
+            aggiornaNumero(
+                "secondi",
+                secondi
+            );
+
+
+            if (totaleSecondi <= 10) {
+
+                document.body.classList.add(
+                    "ultimi10"
+                );
+
+            } else {
+
+                document.body.classList.remove(
+                    "ultimi10"
+                );
+            }
+        }
+
+
+        function aggiornaNumero(
+            id,
+            valore
+        ) {
+
+            const elemento =
+                document.getElementById(id);
+
+
+            const nuovoValore =
+                String(valore).padStart(
+                    2,
+                    "0"
+                );
+
+
+            if (
+                elemento.textContent !==
+                nuovoValore
+            ) {
+
+                elemento.textContent =
+                    nuovoValore;
+
+
+                elemento.classList.remove(
+                    "pop"
+                );
+
+
+                void elemento.offsetWidth;
+
+
+                elemento.classList.add(
+                    "pop"
+                );
+            }
+        }
+
+
+        function terminaCountdown() {
+
+            clearInterval(intervallo);
+
+
+            document.body.classList.remove(
+                "ultimi10"
+            );
+
+
+            document.body.classList.add(
+                "finito"
+            );
+        }
+
+
+        document.addEventListener(
+            "visibilitychange",
+            () => {
+
+                if (
+                    !document.hidden &&
+                    destinazione
+                ) {
+
+                    aggiornaCountdown();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
